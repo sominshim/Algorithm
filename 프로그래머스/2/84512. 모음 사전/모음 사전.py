@@ -1,6 +1,6 @@
 def create_dict(dictionary=[] , char='', step=0):
     '''
-    1~5자리 대문자 모음 사전(dictionary)을 return
+    1~5자리 대문자 모음 사전(dictionary)을 생성
     
     dictionary: 사전 리스트
     char: 사전에 추가할 단어

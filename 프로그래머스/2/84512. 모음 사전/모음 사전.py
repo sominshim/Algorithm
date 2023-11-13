@@ -1,22 +1,35 @@
-def create_dict(dictionary=[] , char='', step=0):
-    '''
-    1~5자리 대문자 모음 사전(dictionary)을 생성
-    
-    dictionary: 사전 리스트
-    char: 사전에 추가할 단어
-    step: 단어 자릿수
-    '''
-    if step == 6: return
-    if char != '':
-        dictionary.append(char)
+def calculate_spacing(max_length, place, spacing, spacing_list):
+    """
+    입력 문자열에서 다음 문자로 넘어갈 때의 간격을 계산하는 함수.
 
-    for i in ['A', 'E', 'I', 'O', 'U']:
-        create_dict(dictionary, ''.join([char, i]), step + 1)
-        
+    Parameters:
+    - max_length (int): 최대 길이로 사용할 값
+    - place (int): 이전 계산된 문자 간격
+    - spacing: 문자열 자릿수
+    - spacing_list (int_list): 반환할 리스트 업데이트
+
+    Returns:
+    - list: 각 문자와 다음 문자 간의 간격을 나타내는 리스트
+    """
+    spacing = max_length * spacing + 1
+    spacing_list.insert(0, spacing) # list의 0번째 위치에 요소 추가 
+    if place == 1: return spacing_list # 종료 조건
+
+    return calculate_spacing(max_length, place - 1, spacing, spacing_list)
+
+# 사용 예시:
+# spacing_result = calculate_spacing(max_length=5, place=5, spacing=0, spacing_list=[])
+# print(spacing_result)
 def solution(word):
-    '''
-    입력된 word가 사전에서 몇 번째 단어인지 return
-    '''
-    dictionary = []
-    create_dict(dictionary, '', 0)
-    return dictionary.index(word) + 1
+    vowels = {'A':0, 
+              'E':1,
+              'I':2,
+              'O':3,
+              'U':4}
+    answer = 0
+
+    spacing_result = calculate_spacing(max_length=5, place=5, spacing=0, spacing_list=[])
+    for i in range(len(word)):
+        answer += 1 + spacing_result[i] * vowels['{}'.format(word[i])]
+        # print(word[i], answer)
+    return answer

@@ -1,26 +1,19 @@
+from collections import Counter
+
 def solution(id_list, report, k):
-    answer = []
-    report_dict = {id : set() for id in id_list}
-    reported_cnt = {id : 0 for id in id_list}
-    suspended_id = []
+    answer = [0] * len(id_list)
+    report_dict = {id:[] for id in id_list}
 
-    for e in report:
+    for e in set(report):
         reporter, reported = e.split()
-        report_dict[reporter].add(reported)
+        report_dict[reporter].append(reported)
 
-    listed = [list(v) for v in report_dict.values()]
-    sum_listed = sum(listed, [])
-    for reported in sum_listed:
-        reported_cnt[reported] += 1
-    for id, cnt in reported_cnt.items():
-        if cnt >= k:
-            suspended_id.append(id)
+    sum_reported = sum(report_dict.values(), [])
+    counts = Counter(sum_reported)
 
     for reporter, reported in report_dict.items():
-        cnt = 0
         for id in reported:
-            if id in suspended_id: 
-                cnt += 1
-        answer.append(cnt)
+            if counts[id] >= k :
+                answer[id_list.index(reporter)] += 1
 
     return answer

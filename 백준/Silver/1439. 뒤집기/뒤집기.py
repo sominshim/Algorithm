@@ -1,8 +1,9 @@
-s = input()
-cnt = 0
+import math
 
-for i in range(len(s)-1):
-    if s[i] != s[i+1]:
+input = input()
+cnt = 0
+for i in range(len(input) - 1):
+    if input[i] != input[i + 1]:
         cnt += 1
-result = cnt//2 + cnt%2
-print(result)
+
+print(math.ceil(cnt/2))

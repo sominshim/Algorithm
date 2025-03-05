@@ -1,9 +1,6 @@
 def solution(citations):
-    n = len(citations)
-    if min(citations) >= n: return n
-    
-    for h in range(n, 0, -1):
-        bigger_cnt = len([e for e in citations if e >= h])
-        if bigger_cnt >= h:
-            return h
-    return 0
+    citations.sort(reverse=True)
+    # 본인보다 큰 수의 개수
+    arr = [(i+1, c) for i, c in enumerate(citations) if i+1 <= c]
+    # print(arr)
+    return len(arr)
